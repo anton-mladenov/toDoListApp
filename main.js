@@ -5,12 +5,11 @@
 - some CSS styling
 */
 
-
 let newTasks = [];
 let doneTasks = [];
 
 let buttonAdd = document.getElementById("buttonAdd");
-let buttonDone = document.getElementById("buttonDelete");
+let buttonDone = document.getElementById("buttonDone");
 
 let listOl = document.getElementById("listOl");
 
@@ -20,12 +19,15 @@ function makeTask() {
 };
 
 function taskDone() {
-  let taskToDelete = parseInt(prompt("Which task did you complete?"));
-  function findTask(x) {
-    return x === refNr;
+  let taskToDelete = prompt("Which task did you complete?");
+  let taskToDeleteInt = parseInt(taskToDelete);
+
+  function checkOffItem(element, index) {
+    let hey = newTasks.splice(index+1, 1);
+    doneTasks.push(hey);
   };
 
-  let gimme = products.find(findProduct);
+  newTasks.forEach(checkOffItem);
 };
 
 function displayTasks() {
@@ -38,13 +40,23 @@ function displayTasks() {
 
 buttonAdd.addEventListener("click", function() {
   makeTask();
+
   while (listOl.hasChildNodes()) {
     listOl.removeChild(listOl.firstChild)
   };
+
   displayTasks();
 });
 
+buttonDone.addEventListener("click", function() {
+  taskDone();
 
+  while (listOl.hasChildNodes()) {
+    listOl.removeChild(listOl.firstChild)
+  };
+
+  displayTasks();
+});
 
 
 
